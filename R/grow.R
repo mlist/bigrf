@@ -159,7 +159,8 @@ setMethod("grow", signature(forest="bigcforest"), function(
     # Begin main loop ----------------------------------------------------------
 
     forest <- foreach(treenum=(forest@ntrees + 1):(forest@ntrees + ntrees),
-                      .combine=combine.treeresults, .init=forest,
+                      .combine=combine.treeresults, .init=forest, 
+		      .multicombine=TRUE,
                       .inorder=FALSE, .verbose=FALSE) %dopar% {
         if (trace >= 1L) message("Growing tree ", treenum, " of ",
                                  oldntrees + ntrees, ".")
